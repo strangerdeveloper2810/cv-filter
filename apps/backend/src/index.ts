@@ -1,6 +1,7 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
+import { AuthRouter } from "./routes";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -8,7 +9,9 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.use("/api/v1/auth", AuthRouter);
+
+app.get("/", (req: Request, res: Response) => {
     res.send("CV Filter Backend is running!");
 });
 
